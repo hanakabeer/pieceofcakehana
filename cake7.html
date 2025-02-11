@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cake Haven</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/locomotive-scroll/4.1.0/locomotive-scroll.min.css">
+    <style>
+       
+        body {
+        margin: 0;
+        overflow: hidden;
+        transition: background 1s ease;
+        cursor:none;
+    }
+    @media (max-width: 266px) { 
+    body {
+        background: linear-gradient(180deg, #ffced9, #fff8f0); /* Different gradient for mobile */
+    }
+}
+
+    section {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        transition: background 1s ease;
+    }
+
+       
+        #main {
+            position: relative;
+            height: 20000vh; /* Adjust height according to content */
+            width: 100%;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #fff;
+            
+        }
+
+        /* Section 2 - Honey Cake Heading */
+        #section2 {
+            font-size: 20rem;
+            line-height: 1em;
+            text-align: center;
+            color: #f17b04; /* Fallback color */
+            opacity: 0; /* Initial state: invisible */
+            animation: fadeIn 5s ease-in-out forwards; /* Apply fade-in animation */
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0; /* Start with invisible */
+            }
+            100% {
+                opacity: 1; /* End with fully visible */
+            }
+        }
+
+        /* Section 3 - Honey Cake Heading Smaller and Aligned Right */
+        #section3 {
+            text-align: center;
+            color: #ffe3aa;
+            padding-left: 40%;
+        }
+
+        #section3 p {
+            text-align: left;
+            font-size: 1.5rem;
+            color: #fff;
+            width: 50%;
+            padding-left: 25%;
+        }
+
+        /* Section 4 - Tiramisu Cake Heading */
+        #section4 {
+            font-size: 20rem;
+            line-height: 1em;
+            text-align: center;
+            color: #d3a15c;
+        }
+
+        /* Section 5 - Tiramisu Heading Smaller and Aligned Left */
+        #section5 {
+            text-align: left;
+            padding-left: 5%;
+            color: #d3a15c;
+        }
+
+        #section5 p {
+            text-align: left;
+            font-size: 1.5rem;
+            color: #fff;
+            width: 50%;
+        }
+
+        /* Animated Intro Text */
+        .main-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #d83873;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            text-align: center;
+            padding-left: 25%;
+            position: absolute;
+            top: 40%;
+        }
+        .sub-text {
+            font-size: 1rem;
+            color: #5C4033;
+            opacity: 0;
+            transition: opacity 3s ease-in-out;
+            position: absolute;
+            padding-left: 33%;
+            bottom: 50px;
+            text-align: center;
+        }
+        /* Floating Hearts & Cake Slices */
+        #emoji-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+            
+        }
+
+        .floating-emoji {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        /* Mute button styling */
+        #mute-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        .marquee-container {
+            position: fixed;
+            width: 100vw;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+        .marquee {
+            white-space: nowrap;
+            font-size: 5vw;
+            font-weight: bold;
+            overflow: hidden;
+            display: flex;
+            width: 100%;
+            position: relative;
+            opacity: 1;
+            color: #fff;
+            opacity:0.3;
+        }
+        
+       
+        .marquee span {
+            display: inline-block;
+            padding-right: 2vw; /* Space between loops */
+        }
+        /* Left to right scrolling */
+        .left-to-right {
+            transform: translateX(-100%);
+        }
+        /* Right to left scrolling */
+        .right-to-left {
+            transform: translateX(100%);
+        }
+        /* Default styles for large screens are already defined */
+
+/* For tablets (768px to 1024px) */
+@media screen and (max-width: 1024px) {
+    #section2, #section4 {
+        font-size: 10rem; /* Reduce heading size */
+    }
+
+    #section3, #section5 {
+        text-align: center;
+        padding-left: 0;
+    }
+
+    #section3 p, #section5 p {
+        width: 80%;
+        padding: 0;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    .main-text {
+        font-size: 2rem;
+        padding-left: 10%;
+        top: 35%;
+    }
+
+    .sub-text {
+        font-size: 0.9rem;
+        padding-left: 10%;
+    }
+
+    .marquee {
+        font-size: 4vw;
+    }
+
+    #mute-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
+
+/* For mobile screens (up to 767px) */
+@media screen and (max-width: 767px) {
+    #section2, #section4 {
+        font-size: 6rem; /* Further reduce heading size */
+    }
+
+    #section3, #section5 {
+        text-align: center;
+        padding-left: 0;
+    }
+
+    #section3 p, #section5 p {
+        width: 90%;
+        padding: 0;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .main-text {
+        font-size: 1.8rem;
+        padding-left: 5%;
+        top: 30%;
+    }
+
+    .sub-text {
+        font-size: 0.8rem;
+        padding-left: 5%;
+    }
+
+    .marquee {
+        font-size: 5vw;
+    }
+
+    #mute-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    @media (max-width: 1024px) { /* Tablet */
+    h1 {
+        font-size: 4rem;
+    }
+    p {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) { /* Mobile */
+    h1 {
+        font-size: 3rem;
+    }
+    p {
+        font-size: 1rem;
+    }
+}
+}
+
+       
+    </style>
+</head>
+<body>
+    <div id="emoji-container"></div>
+    <div class="marquee-container">
+        <div class="marquee left-to-right" id="marquee1"><span>BAKING BAKING BAKING BAKING BAKING BAKING</span></div>
+        <div class="marquee right-to-left" id="marquee2"><span>BAKING BAKING BAKING BAKING BAKING BAKING</span></div>
+        <div class="marquee left-to-right" id="marquee3"><span>BAKING BAKING BAKING BAKING BAKING BAKING</span></div>
+        <div class="marquee right-to-left" id="marquee4"><span>BAKING BAKING BAKING BAKING BAKING BAKING</span></div>
+        <div class="marquee left-to-right" id="marquee5"><span>BAKING BAKING BAKING BAKING BAKING BAKING</span></div>
+    </div>
+
+    <div class="main-text" id="mainText">Not all cakes are equal—some tell a story, <br> some melt in your mouth...</div>
+    <div class="sub-text" id="subText">Scroll to explore different cakes and the best spots in the UAE to try them!</div>
+
+    <div id="main" data-scroll-container>
+        <canvas></canvas>
+        <section id="section1"></section> <!-- Blank Section -->
+        <section id="section2">Honey <br> Cake</section> <!-- Large Honey Cake Title -->
+        <audio id="soundEffect2" src="./bee.mp3"></audio>
+        <section id="section3">
+            <div>
+                <h1>Honey Cake</h1>
+                <p>This cake is soft, sweet, and rich, with layers of honey-sweetened goodness.<br> <br> 📍 katrina.ae </p>
+            </div>
+        </section> <!-- Right-aligned Honey Cake Title with Paragraph -->
+        <section id="section4">Tiramisu Cake</section> 
+        <audio id="soundEffect4" src="./coffee.mp3"></audio><!-- Huge Tiramisu Title -->
+        <section id="section5">
+            <div>
+                <h1>Tiramisu Cake</h1>
+                <p>This classic Italian dessert features rich flavors and smooth layers of cream and coffee.<br> <br> 📍 Public , Downtown dubai</p>
+            </div>
+        </section> <!-- Left-aligned Tiramisu Title with Paragraph -->
+    </div>
+    
+
+    <!-- Audio Player (Hidden) -->
+    <audio id="background-music" loop>
+        <source src="./cake.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Mute Button -->
+    <button id="mute-btn" onclick="toggleMute()">🔊</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.0/dist/locomotive-scroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+
+    <script>
+                // Create the main cake cursor element
+        const cakeCursor = document.createElement('img');
+        cakeCursor.src = './cake.png';  // Path to your cake image
+        cakeCursor.style.position = 'absolute';
+        cakeCursor.style.pointerEvents = 'none';  // Prevent it from blocking any interactions
+        cakeCursor.style.width = '32px';  // Resize the cursor image
+        cakeCursor.style.height = '32px';  // Resize the cursor image
+        cakeCursor.style.zIndex = '9999';  // Ensure the main cursor is on top
+        document.body.appendChild(cakeCursor);
+
+        // Function to update the position of the main cursor
+        document.addEventListener('mousemove', function(e) {
+            cakeCursor.style.left = e.pageX + 'px';
+            cakeCursor.style.top = e.pageY + 'px';
+
+            // Create a trail effect by adding smaller cake images
+            const trail = document.createElement('img');
+            trail.src = './heart.png';  // Path to your cake image
+            trail.style.position = 'absolute';
+            trail.style.pointerEvents = 'none';  // Prevent it from blocking any interactions
+            trail.style.width = '16px';  // Smaller size for the trail
+            trail.style.height = '16px';  // Smaller size for the trail
+            trail.style.left = e.pageX + 'px';
+            trail.style.top = e.pageY + 'px';
+            trail.style.zIndex = '1';  // Ensure the trail is behind the main cursor
+
+            // Add the trail to the body
+            document.body.appendChild(trail);
+
+            // Remove the trail after a short delay to create the disappearing effect
+            setTimeout(() => {
+                trail.remove();
+            }, 300);  // Adjust the time (in ms) to control how quickly the trail disappears
+        });
+
+    
+
+           // Initialize Locomotive Scroll
+        const locoScroll = new LocomotiveScroll({
+            el: document.querySelector('#main'),
+            smooth: true,
+            smartphone: {
+            smooth: true
+        },
+        tablet: {
+            smooth: true
+        }
+        });
+        
+    
+
+
+
+        // Register GSAP ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        const mainText = document.getElementById("mainText");
+        const subText = document.getElementById("subText");
+        const emojiContainer = document.getElementById("emoji-container");
+        let hasScrolled = false;
+
+        function fadeIn(element) {
+            element.style.opacity = "1";
+        }
+        function fadeOut(element) {
+            element.style.opacity = "0";
+        }
+
+            locoScroll.on("scroll", (obj) => {
+        const scrollTop = obj.scroll.y; // Get the current scroll position from Locomotive Scroll
+
+        if (!hasScrolled && scrollTop > 50) {
+            fadeOut(mainText);
+            fadeOut(subText);
+            fadeOut(emojiContainer); 
+            hasScrolled = true;
+        }
+        if (scrollTop === 0) {
+            fadeIn(mainText);
+            fadeIn(subText);
+            fadeIn(emojiContainer); 
+            hasScrolled = false;
+        }
+    });
+
+    const marquees = document.querySelectorAll('.marquee');
+
+    locoScroll.on("scroll", (obj) => {
+        const scrollTop = obj.scroll.y;  // Get scroll position from Locomotive Scroll
+        const windowHeight = window.innerHeight;
+
+        marquees.forEach((marquee, index) => {
+            const movementFactor = (scrollTop / windowHeight) * 200; // Adjust scrolling speed
+            if (index % 2 === 0) {
+                // Move left to right
+                marquee.style.transform = `translateX(${movementFactor - 100}%)`;
+            } else {
+                // Move right to left
+                marquee.style.transform = `translateX(${-movementFactor + 100}%)`;
+            }
+        });
+    });
+
+
+        // Sync Locomotive Scroll with ScrollTrigger
+        locoScroll.on('scroll', ScrollTrigger.update);
+
+        ScrollTrigger.scrollerProxy("#main", {
+            scrollTop(value) {
+                return arguments.length ? locoScroll.scrollTo(value, 0, 0) : locoScroll.scroll.instance.scroll.y;
+            },
+            getBoundingClientRect() {
+                return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+            }
+        });
+
+        ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
+
+        // Define the gradients for each section
+        
+        const gradients = [
+            "linear-gradient(90deg, #ffced9, #fff8f0)",  // Pinky Peachy (Section 1)
+            "linear-gradient(90deg, #ffcc70,  #f8ddbd)",  // Yellowy Orangey (Section 2)
+            "linear-gradient(90deg, #ffbd59, #f17b05)",  // Orangey (Section 3)
+            "linear-gradient(90deg,  #ffcc70, ##ff9a3c)",  // Brown (Section 4)
+            "linear-gradient(90deg, #5a3a1e, #3e2614)"   // Darker Brown (Section 5)
+        ];
+            
+
+        // Select all section elements
+        const sections = document.querySelectorAll("section");
+
+        // ScrollTrigger for each section to change background gradient
+        sections.forEach((section, index) => {
+            ScrollTrigger.create({
+                trigger: section,
+                start: "top center",  // When the top of the section hits the center of the viewport
+                end: "bottom center",  // When the bottom of the section hits the center of the viewport
+                scroller: "#main",  // Scroll container ID (used with Locomotive Scroll)
+                onEnter: () => gsap.to("body", { background: gradients[index], duration: 1, ease: "power1.inOut" }),
+                onEnterBack: () => gsap.to("body", { background: gradients[index], duration: 1, ease: "power1.inOut" })
+            });
+        });
+
+        const audio = document.getElementById("background-music");
+        const muteBtn = document.getElementById("mute-btn");
+
+        // Start playing the background music on page load
+        audio.play();
+
+        function toggleMute() {
+            audio.muted = !audio.muted; // Toggle the mute state
+            muteBtn.textContent = audio.muted ? "🔇" : "🔊"; // Update button text
+        }
+
+        function locomotive() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            const locoScroll = new LocomotiveScroll({
+                el: document.querySelector("#main"),
+                smooth: true,
+            });
+
+            locoScroll.on("scroll", ScrollTrigger.update);
+
+            ScrollTrigger.scrollerProxy("#main", {
+                scrollTop(value) {
+                    return arguments.length
+                        ? locoScroll.scrollTo(value, 0, 0)
+                        : locoScroll.scroll.instance.scroll.y;
+                },
+                getBoundingClientRect() {
+                    return {
+                        top: 0,
+                        left: 0,
+                        width: window.innerWidth,
+                        height: window.innerHeight,
+                    };
+                },
+                pinType: document.querySelector("#main").style.transform ? "transform" : "fixed",
+            });
+
+            ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
+            ScrollTrigger.refresh();
+
+            // Hide intro text when scrolling begins
+        
+        }
+        
+        // Canvas Setup
+        const canvas = document.querySelector("canvas");
+        const context = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            render();
+        });
+
+        // Load Images
+        const frameCount = 840;
+        const images = [];
+
+        function files(index) {
+            const basePath = "./CAKE3/";
+            const fileName = "1" + String(index + 1).padStart(4, '0') + ".png";
+            return basePath + fileName;
+        }
+
+        for (let i = 0; i < frameCount; i++) {
+            const img = new Image();
+            img.src = files(i);
+            img.onerror = () => console.error(`Image not found: ${img.src}`); // Error handling
+            images.push(img);
+        }
+
+        const imageSeq = { frame: 0 };
+
+        gsap.to(imageSeq, {
+            frame: frameCount - 1,
+            snap: "frame",
+            ease: "none",
+            scrollTrigger: {
+                scrub: 0.15,
+                trigger: "canvas",
+                start: "top top",
+                end: "500% top",
+                scroller: "#main",
+                onUpdate: render,
+            },
+        });
+
+        images[0].onload = render;
+
+        function render() {
+            scaleImage(images[imageSeq.frame], context);
+        }
+
+        function scaleImage(img, ctx) {
+            if (!img.complete) return;
+            const canvas = ctx.canvas;
+            const hRatio = canvas.width / img.width;
+            const vRatio = canvas.height / img.height;
+            const ratio = Math.max(hRatio, vRatio);
+            const centerShiftX = (canvas.width - img.width * ratio) / 2;
+            const centerShiftY = (canvas.height - img.height * ratio) / 2;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, img.width, img.height, centerShiftX, centerShiftY, img.width * ratio, img.height * ratio);
+        }
+
+        ScrollTrigger.create({
+            trigger: "canvas",
+            pin: true,
+            scroller: "#main",
+            start: "top top",
+            end: "600% top",
+        });
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.to("#section1", {
+            scrollTrigger: {
+                trigger: "#section1",
+                start: "top top",
+                end: "+=25%", // Shorter pin duration
+                pin: true, 
+                scroller: "#main",
+                scrub: 3, 
+            },
+        });
+
+        gsap.to("#section2", {
+            scrollTrigger: {
+                trigger: "#section2",
+                start: "top top",
+                end: "+=50%", // Stays longer
+                pin: true, 
+                scroller: "#main",
+                scrub: 1.5,
+            },
+        });
+
+        gsap.to("#section3", {
+            scrollTrigger: {
+                trigger: "#section3",
+                start: "top top",
+                end: "+=20%",
+                pin: true, // No pinning
+                scroller: "#main",
+                scrub: 3,
+            },
+        });
+
+        gsap.to("#section4", {
+            scrollTrigger: {
+                trigger: "#section4",
+                start: "top top",
+                end: "+=30%", // Moderate pin duration
+                pin: true,
+                scroller: "#main",
+                scrub: 1,
+            },
+        });
+
+        gsap.to("#section5", {
+            scrollTrigger: {
+                trigger: "#section5",
+                start: "top top",
+                end: "+=75%", // Longest pin duration
+                pin: true,
+                scroller: "#main",
+                scrub: 2,
+            },
+        });
+
+
+
+        // Floating Hearts & Cake Slices Animation
+        function createFloatingEmoji() {
+            const emoji = document.createElement("div");
+            emoji.classList.add("floating-emoji");
+
+            emoji.innerHTML = Math.random() > 0.5 ? "❤️" : "🍰";
+
+            document.getElementById("emoji-container").appendChild(emoji);
+
+            let randomX = Math.random() * window.innerWidth;
+            let randomScale = Math.random() * 0.7 + 0.7;
+            let duration = Math.random() * 3 + 2;
+
+            gsap.set(emoji, {
+                x: randomX,
+                y: window.innerHeight,
+                scale: randomScale,
+                opacity: 1
+            });
+
+            gsap.to(emoji, {
+                y: -50,
+                opacity: 0,
+                duration: duration,
+                ease: "power1.out",
+                onComplete: () => emoji.remove()
+            });
+        }
+        
+        let emojiInterval = setInterval(createFloatingEmoji, 300);
+        
+        const section2 = document.getElementById('section2');
+  const section4 = document.getElementById('section4');
+
+  const soundEffect2 = document.getElementById('soundEffect2');
+  const soundEffect4 = document.getElementById('soundEffect4');
+
+  let hasPlayed2 = false;
+  let hasPlayed4 = false;
+  let sound4Timeout;  // Timeout for stopping Sound Effect 4
+
+  function createObserver(section, sound, flag, stopAfter = null) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !flag.played) {
+          sound.play();
+          flag.played = true;
+
+          // For Section 4, stop the sound after the specified duration
+          if (stopAfter) {
+            sound4Timeout = setTimeout(() => {
+              sound.pause();
+              sound.currentTime = 0;
+            }, stopAfter);
+          }
+        }
+
+        if (!entry.isIntersecting) {
+          sound.pause();
+          sound.currentTime = 0;
+          flag.played = false;
+
+          // Clear timeout if leaving Section 4 early
+          if (stopAfter) {
+            clearTimeout(sound4Timeout);
+          }
+        }
+      });
+    }, {
+      threshold: 0.05
+    });
+
+    observer.observe(section);
+  }
+
+  // Section 2 plays normally
+  createObserver(section2, soundEffect2, { played: hasPlayed2 });
+
+  // Section 4 plays for 2 seconds (2000 ms)
+  createObserver(section4, soundEffect4, { played: hasPlayed4 }, 2000);
+  
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    render();
+});
+
+if (window.innerWidth < 768) {
+    document.body.style.cursor = "auto";
+    cakeCursor.style.display = "none";
+}
+
+
+
+
+    </script>
+</body>
+</html>
